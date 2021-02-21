@@ -69,10 +69,6 @@ app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
 
-
-
-
-
 from ou_je_voyage import routes
 
 
