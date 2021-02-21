@@ -1,0 +1,318 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container_flash">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+     {%if messages %}
+          {%for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+              <h4 style="text-align:center;">{{ message }}</h4>
+            </div>
+          {%endfor%}
+    {%endif %}
+  {%endwith%}
+</div>
+
+<div class="salutation_connecte">
+  <h1>Bienvenue, {{ current_user.username }}!</h1>
+</div>
+
+<!-- Activities -->
+<div class="container" id="activities">
+  <div class="row">
+    <div class="col-12">
+      <div class="tm-parallax">
+        <header class="tm-parallax-header">
+          <h2 class="">J'y vais !</h2>
+        </header>
+      </div>
+    </div>
+  </div>
+    
+      <!-- Barre choix utilisateur -->
+      <div class="choix_barre">
+        <div class="choix_titre">
+          <header class="tm-feature-header">  
+            <i class="fas fa-5x fa-question tm-feature-icon"></i>
+            <h3 class="tm-feature-h">Quelles sont vos préférences ?</h3>
+            <p>(Pour l'instant) <u>un critère</u> à la fois...</p>
+          </header>
+        </div>
+        
+        <div class="row align-items-center justify-content-center">
+          <form  action="" method="post" class="form_flask_jib" >
+              {{ choix_utilisateur.csrf_token() }}
+              <div id="pop">
+              {{choix_utilisateur.nombre_population.label(class="form-control-label")}}<br>
+              {{choix_utilisateur.nombre_population(class="form-control form-control-lg")}}
+              </div>
+              <div id="espe">
+              {{choix_utilisateur.esperance_vie.label(class="form-control-label")}}<br>
+              {{choix_utilisateur.esperance_vie(class="form-control form-control-lg")}}
+              </div>
+              <div id="cho">
+                {{choix_utilisateur.taux_chomage.label(class="form-control-label")}}<br>
+                {{choix_utilisateur.taux_chomage(class="form-control form-control-lg")}}
+              </div>
+              <div id="tempe">
+                {{choix_utilisateur.temperature.label(class="form-control-label")}}<br>
+                {{choix_utilisateur.temperature(class="form-control form-control-lg")}}
+              </div>
+              <div id="meteo">
+                {{choix_utilisateur.meteo.label(class="form-control-label")}}<br>
+                {{choix_utilisateur.meteo(class="form-control form-control-lg")}}
+              </div>
+              <div class="modal-footer">
+                  <div class="move" >
+                    {{ choix_utilisateur.choix_submit(class="btn btn-primary") }}
+                  </div>
+              </div>
+          </form>
+        </div>
+      </div>
+      
+  <!-- Features -->
+  <div class="container tm-features-section" id="features">
+    <div class="row tm-features-row">
+      <section class="col-md-6 col-sm-12 tm-feature-block">
+        <header class="tm-feature-header">
+          <i class="fas fa-5x fa-table tm-feature-icon"></i>
+          <h3 class="tm-feature-h">Classement des pays</h3>
+        </header>
+        <p>
+          Une fois que vous aurez sélectionné le critère de votre choix, nous 
+          allons vous dresser un classement des destinations où vous devriez 
+          aller. Si jamais vous souhaitez connaître la liste des pays disponibles 
+          cliquez sur "Soumettre" sans selectionner un seul critère.
+        </p>
+        <p>
+           Les destinations visibles seront celles qui présentent des données
+           non nulles dans les bases de données de <strong>l'OCDE</strong> et 
+           d'<strong>OpenWeatherMap</strong>. 
+        </p>
+      </section>
+      <section class="col-md-6 col-sm-12 tm-feature-block">
+        <header class="tm-feature-header">
+          
+          <i class="fas fa-5x fa-chart-area tm-feature-icon"></i>
+          <h3 class="tm-feature-h">Analyse des critères</h3>
+        </header>
+        <p>
+          Une fois le classement des destinations effectué, nous analyserons
+          ensemble en détail les raisons de ce classement, notamment en nous 
+          aidant de graphiques <strong>Seaborn</strong> (prochainement Highchart)
+        </p>
+        <p>
+          Vous pourrez par exemple suivre l'evolution du taux de chômage du
+          pays en question sur plusieurs années ou encore connaître ses variations
+          de température sur les 5 derniers jours.
+        </p>
+      </section>
+    </div>
+  </div>
+
+    <!-- Tableau -->
+    <div class="resultat_pays">
+      <div class="resultat">
+    {% if title == "J'y vais" %}
+        <div class="resultat_titre">
+          <header class="tm-feature-header">  
+            <i class="fas fa-5x fa-atlas tm-feature-icon"></i>
+            <h4 class="tm-feature-h">Voici les pays disponibles</h4>
+          </header>
+        </div>
+    {% else %}
+        <div class="resultat_titre">
+          <header class="tm-feature-header">  
+            <i class="fas fa-5x fa-flag tm-feature-icon"></i>
+            <h4 class="tm-feature-h">Votre prochaine destination : {{title}} !!</h4>
+          </header>
+        </div>
+    {% endif %}
+
+
+        <div class="w-100 p-3">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Pays</th>
+                <th scope="col">Population</th>
+                <th scope="col">Esperance de vie</th>
+                <th scope="col">Taux de chomage (%)</th>
+                <th scope="col">°C Maintenant</th>
+                <th scope="col">°C J-5</th>
+                <th scope="col">Meteo J-5</th>
+              </tr>
+            </thead>
+            <tbody>
+              {%for ce_pays in pays %}
+              <tr>
+                <td>{{ce_pays['country_name']}}</td>
+                <td>{{ce_pays['country_pop']}}</td>
+                <td>{{ce_pays['country_life_exp']}}</td>
+                <td>{{ce_pays['country_unem_rate']}}</td>
+
+                <td>{{ce_pays['country_temp']}}</td>
+                <td>{{ce_pays['country_temp_5d']}}</td>
+                <td>{{ce_pays['country_weather_5d']}}</td>
+              </tr>
+              {% endfor %}
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+      {% if title != "J'y vais" %}
+      <!-- Activities -->
+        <div class="container" id="activities">
+          <div class="row">
+            <div class="col-12">
+              <div class="tm-parallax">
+                <header class="tm-parallax-header">
+                  <h2 class="">Analysons la destination de vos rêves ...</h2>
+                </header>
+              </div>
+            </div>
+          </div>
+
+      
+          <!-- Graphique -->
+        <div class="row">
+          <div class="col">
+            <header>
+              <h2 class="tm-company-about-header">Sa population </h2>
+            </header>
+            <div class="tm-company-about">
+            
+            <div class="tm-company-img-container">
+              <img src="{{ url_for('static', filename='graphiques/population.png') }}" alt="Image" />
+            </div>
+          </div>
+          </div>
+          <div class="col">
+            <header>
+              <h2 class="tm-company-about-header">Son chômage </h2>
+            </header>
+            <div class="tm-company-about">
+            
+            <div class="tm-company-img-container">
+              <img src="{{ url_for('static', filename='graphiques/chomage.png') }}" alt="Image" />
+            </div>
+          </div>
+          </div>
+          <div class="w-100"></div>
+          <div class="col">
+            <header>
+            <h2 class="tm-company-about-header">Son esperance de vie </h2>
+          </header>
+          <div class="tm-company-about">
+          
+          <div class="tm-company-img-container">
+            <img src="{{ url_for('static', filename='graphiques/espe_vie.png') }}" alt="Image" />
+          </div>
+        </div></div>
+          <div class="col">
+            <header>
+            <h2 class="tm-company-about-header">Temp./Esp. vie/Pop./Cho </h2>
+          </header>
+          <div class="tm-company-about">
+          
+          <div class="tm-company-img-container">
+            <img src="{{ url_for('static', filename='graphiques/corelation.png') }}" alt="Image" />
+          </div>
+        </div></div>
+        </div>
+      {% endif %}
+</div>
+    <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script> <!-- NE PAS ENLEVER POUR GRAPH-->
+
+    <!-- JQuery links  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!-- NE PAS ENLEVER POUR POP UP-->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> <!-- NE PAS ENLEVER POUR POP-UP MODIF/AJOUT-->
+
+
+    <!-- Pour le graph HighchartJS -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script>
+    Highcharts.chart('container', {
+
+    title: {
+        text: 'Critères socio-économiques du 1er pays, 2010-2016'
+    },
+
+    subtitle: {
+        text: 'Source: OCDE, Openweather'
+    },
+
+    yAxis: {
+        title: {
+            text: ''
+        }
+    },
+
+    xAxis: {
+        accessibility: {
+            rangeDescription: 'Range: 2010 to 2017'
+        }
+    },
+
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle'
+    },
+
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+            pointStart: 2010
+        }
+    },
+
+    series: [{
+        name: 'Esperance de Vie',
+        data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
+    }, {
+        name: 'Demographie',
+        data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
+    }, {
+        name: 'Chômage',
+        data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
+    }, {
+        name: 'Temperatures',
+        data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
+    }, {
+        name: 'Ploviométrie',
+        data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+    });
+    </script>
+        
+{% endblock %}
+

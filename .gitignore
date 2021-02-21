@@ -1,0 +1,12 @@
+__pycache__
+
+# Environnement Virtuel
+venv
+
+# Configuration
+config
+config.py
+
+#Jupyter Notebook
+*.ipynb
+

@@ -1,0 +1,394 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="container_flash">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {%if messages %}
+              {%for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                  <h4 style="text-align:center;">{{ message }}</h4>
+                </div>
+              {%endfor%}
+        {%endif %}
+      {%endwith%}
+    </div>
+    <!-- Video Banner -->
+    <section class="tm-banner-section" id="tmVideoSection">
+      <div class="container tm-banner-text-container">
+        <div class="row">
+          <div class="col-12">
+            <header>
+              <h2 class="tm-banner-title">« J’y vais ! »... Mais comment ça marche ?</h2>
+              <p class="mx-auto tm-banner-subtitle">
+                Vous pouvez visionner cette courte video pour une explication en image.
+              </p>
+            </header>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video -->
+
+      <video id="hero-vid" controls muted>
+        <source src="{{ url_for('static', filename='videos/Video_promo_Digifood.mp4') }}" type="video/mp4" />
+        Visiblement notre navigateur rencontre quelques difficultés pour afficher la videos...
+        Une petite mise à jour ? Sinon essayez d'appuyer sur F5 pour recharger la page.
+      </video>
+    
+
+    </section>
+     <section class="container tm-company-section" id="company">
+      <div class="row">
+        <div class="col-xl-9 col-lg-8 col-md-12 tm-company-left">
+          <div class="tm-company-about">
+            <div class="tm-company-img-container">
+              <img src="{{ url_for('static', filename='img/pour_qui.jpeg') }}" alt="Image" />
+            </div>
+            <div class="tm-company-about-text">
+              <header>
+                <h2 class="tm-company-about-header">Pour qui ? </h2>
+              </header>
+              <p>
+                Pour tout.e voyageur.se en herbe ou expérienté.e ! Que vous aiyez
+                déjà pris l'avion, le bateau ou au contraire que cela soit tout
+                nouveau pour vous...Soyez les bienvenu.e.s !
+              </p>
+
+              <p class="mb-4">
+                Entre des conditions météorologiques "extrèmes" et
+                des situations géopolitiques inédites, prevoir son séjour
+                à l'etranger peut s'averer très anxiogène...
+                Ainsi, il peut être profitable de savoir là où l'on va mettre
+                les pieds avant de décoller !
+
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-xl-9 col-lg-4 col-md-12 tm-company-right  ml-lg-auto mr-lg-0"
+        >
+          <div class="tm-company-right-inner">
+            <ul class="nav nav-tabs" id="tmCompanyTab" role="tablist">
+              <li class="nav-item">
+                <a
+                  class="nav-link tm-nav-link-border-right active"
+                  id="vision-tab"
+                  data-toggle="tab"
+                  href="#vision"
+                  role="tab"
+                  aria-controls="vision"
+                  aria-selected="true"
+                  >Technologies utilisées</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link tm-no-border-right"
+                  id="mission-tab"
+                  data-toggle="tab"
+                  href="#mission"
+                  role="tab"
+                  aria-controls="mission"
+                  aria-selected="false"
+                  >Sources d'information</a>
+              </li>
+            </ul>
+            <div class="tab-content" id="tmTabContent">
+              <div
+                class="tab-pane fade show active"
+                id="vision"
+                role="tabpanel"
+                aria-labelledby="vision-tab"
+              >
+                <p>
+                  <strong>Front-end :</strong> HTML, CSS, Bootstrap
+                </p>
+                <p>
+                  <strong>Back-end :</strong> Python, Flask
+                </p>
+                <p>
+                  <strong>Base de données :</strong> PostgreSQL, SQLAlchemy
+                </p>
+                <p>
+                  <strong>Déploiement :</strong> Heroku
+                </p>
+              </div>
+              <div
+                class="tab-pane fade"
+                id="mission"
+                role="tabpanel"
+                aria-labelledby="mission-tab"
+              >
+                <p>
+                  L'Organisation de coopération et de développement économiques
+                  (<strong>OCDE</strong>)
+                </p>
+                <p>
+                  L'Organisation des Nations Unies pour l'éducation, la science
+                   et la Culture (<strong>UNESCO</strong>)
+                </p>
+                <p>
+                  Le service en ligne de prévisions météorologiques : (<strong>OpenWeatherMap</strong>)
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Activities -->
+    <div class="container" id="activities">
+      <div class="row">
+        <div class="col-12">
+          <div class="tm-parallax">
+            <header class="tm-parallax-header">
+              <h2 class="">A propos</h2>
+            </header>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="tm-activity-block">
+            <div class="tm-activity-img-container">
+              <img src="{{ url_for('static', filename='img/avion_nuit.jpeg') }}" alt="Image" class="tm-activity-img" />
+            </div>
+              <div class="tm-activity-block-text">
+                <h3 class="tm-text-blue"><a 
+                    rel="nofollow"
+                    href="https://github.com/J-BT/ou_je_vais" 
+                    class="tm-footer-link">Du projet</a></h3>
+                <p>
+                  Ce projet valide les certifications <strong><a 
+                    rel="nofollow"
+                    href="https://www.francecompetences.fr/recherche/rs/3497/" 
+                    class="tm-footer-link">RS3497</a></strong>  
+                  “Développer une base de données” et <strong><a 
+                    rel="nofollow"
+                    href="https://www.francecompetences.fr/recherche/rs/3508/" 
+                    class="tm-footer-link">RS3508</a></strong>  
+                   “Exploiter une base de données” 
+                   <strong>reconnues par l’État</strong>.
+                </p>
+              </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="tm-activity-block mr-lg-0 ml-lg-auto">
+            <div class="tm-activity-img-container">
+              <img src="{{ url_for('static', filename='img/photo_profile.jpeg') }}" alt="Image" class="tm-activity-img" />
+            </div>
+              <div class="tm-activity-block-text">
+                  <h3 class="tm-text-blue"><a 
+                    rel="nofollow"
+                    href="https://www.linkedin.com/in/jeanbaptistetheroulde/" 
+                    class="tm-footer-link">De l'auteur</a></h3>
+                  <p>
+                    Stagiaire de la formation développeur data en reconversion
+                    professionelle dans les domaines du 
+                    <strong>développement back-end </strong>
+                    et de la <strong>data analyse</strong>.
+                  </p>
+              </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="tm-activity-block">
+            <div class="tm-activity-img-container">
+              <img src="{{ url_for('static', filename='img/le_havre.jpeg') }}" alt="Image" class="tm-activity-img" />
+            </div>
+            <div class="tm-activity-block-text">
+              <h3 class="tm-text-blue"><a 
+                    rel="nofollow"
+                    href="https://digifab.fr/le-havre" 
+                    class="tm-footer-link">De l'ecole</a></h3>
+              <p>
+                <strong>Digifab</strong>, fait partie du réseau Simplon.
+                Ses 3 écoles à <strong>Besançon</strong>,
+                <strong>Annemasse</strong> et <strong>Le Havre</strong>
+                ont été créees pour répondre aux besoins croissants
+                des recruteurs.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="tm-activity-block mr-lg-0 ml-lg-auto">
+            <div class="tm-activity-img-container">
+              <img src="{{ url_for('static', filename='img/crocodile_nipponbashi.jpeg') }}" alt="Image" class="tm-activity-img" />
+            </div>
+            <div class="tm-activity-block-text">
+              <h3 class="tm-text-blue"><a 
+                    rel="nofollow"
+                    href="https://www.facebook.com/nihonnobouken" 
+                    class="tm-footer-link">Du PVT au Japon</a></h3>
+              <p>
+                Une forte envie de dépaysement, plusieurs mois d'économie et
+                le tour est joué. Vous êtes fin prêt.e.s à vous envoler au
+                pays de l'Okonomiyaki ! <strong> Vivez notre séjour d'un an
+                 en image </strong>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- -------------------------SCRIPTS--------------------------------------->
+    <script src="{{ url_for('static', filename='js/jquery-1.9.1.min.js') }}"></script>
+    <!-- Single Page Nav plugin works with this version of jQuery -->
+    <script src="{{ url_for('static', filename='js/jquery.singlePageNav.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script>
+      /**
+       * detect IE
+       * returns version of IE or false, if browser is not Internet Explorer
+       */
+      function detectIE() {
+        var ua = window.navigator.userAgent;
+
+        var msie = ua.indexOf("MSIE ");
+        if (msie > 0) {
+          // IE 10 or older => return version number
+          return parseInt(ua.substring(msie + 5, ua.indexOf(".", msie)), 10);
+        }
+
+        var trident = ua.indexOf("Trident/");
+        if (trident > 0) {
+          // IE 11 => return version number
+          var rv = ua.indexOf("rv:");
+          return parseInt(ua.substring(rv + 3, ua.indexOf(".", rv)), 10);
+        }
+
+        // var edge = ua.indexOf('Edge/');
+        // if (edge > 0) {
+        //     // Edge (IE 12+) => return version number
+        //     return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+        // }
+
+        // other browser
+        return false;
+      }
+
+      function setVideoHeight() {
+        const videoRatio = 1920 / 1080;
+        const minVideoWidth = 400 * videoRatio;
+        let secWidth = 0,
+          secHeight = 0;
+
+        secWidth = videoSec.width();
+        secHeight = videoSec.height();
+
+        secHeight = secWidth / 2.13;
+
+        if (secHeight > 600) {
+          secHeight = 600;
+        } else if (secHeight < 400) {
+          secHeight = 400;
+        }
+
+        if (secWidth > minVideoWidth) {
+          $("video").width(secWidth);
+        } else {
+          $("video").width(minVideoWidth);
+        }
+
+        videoSec.height(secHeight);
+      }
+
+      // Parallax function
+      // https://codepen.io/roborich/pen/wpAsm
+      var background_image_parallax = function($object, multiplier) {
+        multiplier = typeof multiplier !== "undefined" ? multiplier : 0.5;
+        multiplier = 1 - multiplier;
+        var $doc = $(document);
+        $object.css({ "background-attatchment": "fixed" });
+        $(window).scroll(function() {
+          var from_top = $doc.scrollTop(),
+            bg_css = "center " + multiplier * from_top + "px";
+          $object.css({ "background-position": bg_css });
+        });
+      };
+
+      $(window).scroll(function() {
+        if ($(this).scrollTop() > 50) {
+          $(".scrolltop:hidden")
+            .stop(true, true)
+            .fadeIn();
+        } else {
+          $(".scrolltop")
+            .stop(true, true)
+            .fadeOut();
+        }
+
+        // Make sticky header
+        if ($(this).scrollTop() > 158) {
+          $(".tm-nav-section").addClass("sticky");
+        } else {
+          $(".tm-nav-section").removeClass("sticky");
+        }
+      });
+
+      let videoSec;
+
+      $(function() {
+        if (detectIE()) {
+          alert(
+            "Please use the latest version of Edge, Chrome, or Firefox for best browsing experience."
+          );
+        }
+
+        const mainNav = $("#tmMainNav");
+        mainNav.singlePageNav({
+          filter: ":not(.external)",
+          offset: $(".tm-nav-section").outerHeight(),
+          updateHash: true,
+          beforeStart: function() {
+            mainNav.removeClass("show");
+          }
+        });
+
+        videoSec = $("#tmVideoSection");
+
+        // Adjust height of video when window is resized
+        $(window).resize(function() {
+          setVideoHeight();
+        });
+
+        setVideoHeight();
+
+        $(window).on("load scroll resize", function() {
+          var scrolled = $(this).scrollTop();
+          var vidHeight = $("#hero-vid").height();
+          var offset = vidHeight * 0.6;
+          var scrollSpeed = 0.25;
+          var windowWidth = window.innerWidth;
+
+          if (windowWidth < 768) {
+            scrollSpeed = 0.1;
+            offset = vidHeight * 0.5;
+          }
+
+          $("#hero-vid").css(
+            "transform",
+            "translate3d(-50%, " + -(offset + scrolled * scrollSpeed) + "px, 0)"
+          ); // parallax (25% scroll rate)
+        });
+
+        // Parallax image background
+        background_image_parallax($(".tm-parallax"), 0.4);
+
+        // Back to top
+        $(".scroll").click(function() {
+          $("html,body").animate(
+            { scrollTop: $("#home").offset().top },
+            "1000"
+          );
+          return false;
+        });
+      });
+    </script>
+{% endblock %}
