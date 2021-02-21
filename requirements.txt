@@ -19,3 +19,4 @@ json-python-module
 xlrd
 Flask-Mail==0.9.1
 gunicorn==20.0.4
+python-dotenv==0.15.0

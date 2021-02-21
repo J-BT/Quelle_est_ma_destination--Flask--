@@ -9,4 +9,4 @@ Created on Sat Sep 26 20:38:48 2020
 from ou_je_voyage import app
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(threaded=True, debug=False)

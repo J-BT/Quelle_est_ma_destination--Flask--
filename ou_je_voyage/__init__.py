@@ -11,7 +11,8 @@ from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from flask_login import LoginManager
-
+from dotenv import load_dotenv
+import os
 
 ### imports modules
 try:
@@ -47,7 +48,7 @@ port = le_port
 URI = l_URI
 
 
-
+name = os.getenv('NAME')
 # pour utiliser le to_sql()
 engine = create_engine(URI, echo=False)
 # PENSER A BIEN NOTER -----> app.config['SQLALCHEMY_DATABASE_URI'] = {bdd}
